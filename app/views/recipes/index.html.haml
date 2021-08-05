@@ -1,0 +1,9 @@
+%h1.mb-4 Recipes
+
+#recent-recipes{ data: { 'recent-url' => recent_recipes_path(format: :json), 'last-id' => @recipes.first&.id } }
+  = form_with method: :get, class: 'row my-4 mx-auto rounded border py-3 w-100' do |form|
+    .col-sm-1= form.label :query
+    .col-sm-10= form.text_field :query, value: params[:query], class: 'w-100'
+    .col-sm-1= form.submit :search, class: 'w-100'
+
+  = render partial: 'list'

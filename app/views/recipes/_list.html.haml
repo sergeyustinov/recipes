@@ -1,0 +1,8 @@
+- if @recipes.present?
+  #recipes.accordion
+    - @recipes.each_with_index do |recipe, index|
+      = render partial: 'recipe', locals: { recipe: recipe, index: index }
+
+  = paginate @recipes
+- else
+  #recipes There are no recipes

@@ -1,0 +1,41 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title Recipes
+    %meta{:content => "width=device-width,initial-scale=1", :name => "viewport"}/
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+  %body
+    .container.position-relative
+      #header
+        Recipes website
+      #alerts
+        - flash.each do |type, msg|
+          .alert{class: flash_class(type)}= msg
+
+      %ul.nav.nav-fill.shadow.p-3.mb-5.bg-body.rounded
+        %li.nav-item
+          = link_to 'All Recipes', recipes_path, class: nav_class(:recipes)
+        - if current_user
+          %li.nav-item
+            = link_to 'My Recipes', my_recipes_path, class: nav_class(:recipes, :my)
+        %li.nav-item.disabled
+          = link_to 'News', '#', class: nav_class(:news)
+        %li.nav-item.disabled
+          = link_to 'Articles', '#', class: nav_class(:articles)
+        %li.nav-item.disabled
+          = link_to 'Reviews', '#', class: nav_class(:reviews)
+        - if current_user
+          %li.nav-item.text-nowrap.user-nav
+            Welcome back,
+            = current_user.first_name
+            |
+            = link_to 'Sign out', destroy_user_session_path, method: :delete, class: nav_class('devise/sessions')
+        - else
+          %li.nav-item
+            = link_to 'Sign in', new_user_session_path, class: nav_class('devise/sessions')
+    .container
+      = yield

@@ -1,0 +1,61 @@
+// Import Bootstrap v5  
+@import "~bootstrap/scss/bootstrap";  
+
+@import "trix/dist/trix";
+
+#alerts, #header {
+  height: 70px;
+}
+
+#header {
+  text-align: center;
+  line-height: 70px;
+  font-size: 34px;
+}
+
+#alerts {
+  position: absolute;
+  top: 0;
+  left: 12px;
+}
+
+.nav-link {
+  &.active {
+    color: black;
+  }
+}
+
+.nav-item {
+  &.disabled {
+    a {
+      color: #999;
+      cursor: not-allowed;
+    }
+  }
+
+  &.user-nav {
+    padding: 0.5rem 1rem;
+
+    a {
+      display: inline;
+      padding: 0;
+    }
+  }
+}
+
+.field {
+  margin-bottom: 20px;
+}
+
+
+.pagination {
+  margin: 20px auto;
+
+  a {
+    padding: 7px;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}

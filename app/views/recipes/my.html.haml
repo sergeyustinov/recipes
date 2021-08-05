@@ -1,0 +1,9 @@
+.container
+  .row
+    .col
+      %h1.mb-4 My Recipes
+    .col
+      = link_to '+ Create', new_recipe_path, class: 'btn btn-primary float-end'
+
+= render partial: 'list'
+

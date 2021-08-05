@@ -1,0 +1,16 @@
+.accordion-item
+  %h2.accordion-header{ id: dom_id(recipe) }
+
+    %button.accordion-button{class: index > 0 ? 'collapsed' : '', 'aria-controls' => dom_id(recipe, :content), 'aria-expanded' => 'true', 'data-bs-target' => "##{dom_id(recipe, :content)}", 'data-bs-toggle' => 'collapse', type: 'button'}
+      = recipe.title
+
+  .accordion-collapse.collapse{class: index.zero? ? 'show' : '', id: dom_id(recipe, :content), 'aria-labelledby' => dom_id(recipe), 'data-bs-parent' => '#recipes'}
+    .accordion-body
+      - if (destroy = policy(recipe).destroy?) | (edit = policy(recipe).edit?)
+        .d-grid.gap-2.d-md-flex.justify-content-md-end
+          - if edit
+            = link_to 'Edit', edit_recipe_path(recipe), class: 'btn btn-sm btn-primary'
+          - if destroy
+            = link_to 'Delete', recipe_path(recipe), method: :delete, class: 'btn btn-sm btn-danger', data: { confirm: 'Are you sure?' }
+
+      = recipe.content

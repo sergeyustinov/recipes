@@ -10,9 +10,13 @@ class User < ApplicationRecord
 
   has_many :recipes, dependent: :destroy
 
-  validates :first_name, :email, :role, presence: true
+  validates :email, :role, presence: true
 
   def owner_of?(inst)
     inst.respond_to?(:user_id) && inst.user_id == id
+  end
+
+  def name
+    first_name || email.split('@').first
   end
 end

@@ -6,7 +6,7 @@
     %meta{:content => "width=device-width,initial-scale=1", :name => "viewport"}/
     = csrf_meta_tags
     = csp_meta_tag
-    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
   %body
     .container.position-relative
@@ -31,7 +31,7 @@
         - if current_user
           %li.nav-item.text-nowrap.user-nav
             Welcome back,
-            = current_user.first_name
+            = current_user.name
             |
             = link_to 'Sign out', destroy_user_session_path, method: :delete, class: nav_class('devise/sessions')
         - else

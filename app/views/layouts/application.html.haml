@@ -14,7 +14,7 @@
         Recipes website
       #alerts
         - flash.each do |type, msg|
-          .alert{class: flash_class(type)}= msg
+          .alert.server-alert{ class: flash_class(type) }= msg
 
       %ul.nav.nav-fill.shadow.p-3.mb-5.bg-body.rounded
         %li.nav-item

@@ -1,10 +1,10 @@
 en:
   recipes:
     create:
-      error: Recipe did not create
-      notice: Recipe successfully created
+      error: Recipe was not created
+      notice: Recipe was successfully created
     update:
-      error: Recipe did not update
-      notice: Recipe successfully updated
+      error: Recipe was not updated
+      notice: Recipe was successfully updated
     destroy:
-      notice: Recipe successfully deleted
+      notice: Recipe was successfully deleted

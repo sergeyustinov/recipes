@@ -1,5 +1,5 @@
 require 'rails_helper'
-# @todo
+# @todo complete tests
 RSpec.describe "Recipes", type: :request do
   describe "GET /recipes" do
     let(:recipes) { Recipe.all }
@@ -10,7 +10,7 @@ RSpec.describe "Recipes", type: :request do
     before do
       create_list :recipe, 1
 
-      allow(Recipe).to receive_message_chain(:ordered, :with_rich_text_content_and_embeds).and_return dbl
+      allow(Recipe).to receive_message_chain(:ordered, :with_rich_text_content_and_embeds, :active).and_return dbl
       allow(dbl).to receive_message_chain(:search).and_return recipes
     end
 

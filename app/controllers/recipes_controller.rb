@@ -1,14 +1,16 @@
 class RecipesController < ApplicationController
   COUNT_RECIPES_ON_PAGE = 5
 
+  # it is not neccessary as pundit will check, but will remove unneccessary 500 errors with current_user as nil
+  before_action :authenticate_user!, only: %i[new create edit update destroy]
   before_action :find_recipe, only: %i[edit update destroy]
 
   def index
-    @recipes = recipes.search(params[:query]).page(params[:page]).per(COUNT_RECIPES_ON_PAGE)
+    @recipes = recipes.active.search(params[:query]).page(params[:page]).per(COUNT_RECIPES_ON_PAGE)
   end
 
   def recent
-    @recipes = recipes.recent(params[:last_id])
+    @recipes = recipes.active.recent(params[:last_id].to_i)
   end
 
   def my
@@ -18,7 +20,7 @@ class RecipesController < ApplicationController
   def edit; end
 
   def new
-    @recipe = Recipe.new
+    @recipe = current_user.recipes.new
 
     authorize @recipe
   end
@@ -29,21 +31,17 @@ class RecipesController < ApplicationController
 
     authorize @recipe
 
-    if @recipe.save
-      redirect_to({ action: :my }, notice: t('.notice'))
-    else
-      flash[:error] = t('.error')
-      render :new
-    end
+    redirect_to({ action: :my }, notice: t('.notice')) and return if @recipe.save
+
+    flash[:error] = t('.error')
+    render :new
   end
 
   def update
-    if @recipe.update permitted_params
-      redirect_to({ action: :my }, notice: t('.notice'))
-    else
-      flash[:error] = t('.error')
-      render :edit
-    end
+    redirect_to({ action: :my }, notice: t('.notice')) and return if @recipe.update(permitted_params)
+
+    flash[:error] = t('.error')
+    render :edit
   end
 
   def destroy
